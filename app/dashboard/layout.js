@@ -26,9 +26,10 @@ export default function DashboardLayout({ children }) {
         .eq("id", session.user.id)
         .single();
 
-      if (!perfil) {
-        router.replace("/login");
+       if (!perfil) {
+        router.replace("/completar-cadastro");
         return;
+      }
       }
       if (perfil.papel === "super_admin") {
         router.replace("/admin");
