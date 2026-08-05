@@ -26,6 +26,7 @@ export default function BarcodeScanner({ onDetect, onClose }) {
       }
       detectorRef.current = new DetectorClass({
         formats: ["ean_13", "ean_8", "upc_a", "upc_e", "code_128", "code_39", "qr_code"],
+        });
   
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
