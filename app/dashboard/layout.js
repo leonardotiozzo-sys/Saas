@@ -30,7 +30,7 @@ export default function DashboardLayout({ children }) {
         router.replace("/completar-cadastro");
         return;
       }
-      }
+      
       if (perfil.papel === "super_admin") {
         router.replace("/admin");
         return;
