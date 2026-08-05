@@ -23,7 +23,9 @@ export default function HomePage() {
         .eq("id", session.user.id)
         .single();
 
-      if (perfil?.papel === "super_admin") {
+     if (!perfil) {
+        router.replace("/completar-cadastro");
+      } else if (perfil.papel === "super_admin") {
         router.replace("/admin");
       } else {
         router.replace("/dashboard");
