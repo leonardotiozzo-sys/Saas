@@ -18,16 +18,15 @@ export default function BarcodeScanner({ onDetect, onClose }) {
   }, []);
 
   async function start() {
-    if (!("BarcodeDetector" in window)) {
-      setErro(
-        "Seu navegador não suporta leitura automática de código de barras. Use Chrome/Edge atualizados, ou digite o código manualmente."
-      );
-      return;
-    }
     try {
-      detectorRef.current = new window.BarcodeDetector({
+      let DetectorClass = window.BarcodeDetector;
+      if (!DetectorClass) {
+        const { BarcodeDetector: Polyfill } = await import("barcode-detector/ponyfill");
+        DetectorClass = Polyfill;
+      }
+      detectorRef.current = new DetectorClass({
         formats: ["ean_13", "ean_8", "upc_a", "upc_e", "code_128", "code_39", "qr_code"],
-      });
+  
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
       });
